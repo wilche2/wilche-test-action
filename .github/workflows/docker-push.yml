@@ -25,9 +25,12 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Get project version from pom.xml
+      -
+        name: Get project version from pom.xml
         id: get_version
-        run: echo "::set-output name=version::$(grep -oPm1 "(?<=<version>).*?(?=</version>)" pom.xml)"
+        run: |
+          version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "::set-output name=version::${version}"
       -
         name: Build and push
         uses: docker/build-push-action@v4
