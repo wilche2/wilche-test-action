@@ -1,4 +1,4 @@
-name: ci
+name: Push Docker Hub CI
 
 on:
   workflow_dispatch:
