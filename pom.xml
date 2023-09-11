@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.example</groupId>
     <artifactId>wilche-test-action</artifactId>
-    <version>1.0.2-RELEASE</version>
+    <version>1.0.3-RELEASE</version>
     <name>wilche-test-action</name>
     <packaging>jar</packaging>
     <description>wilche-test-action</description>
