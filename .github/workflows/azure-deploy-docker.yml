@@ -13,6 +13,7 @@ env:
   AZURE_WEBAPP_NAME: 20230913DOCKER   # set this to your application's name
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
