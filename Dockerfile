@@ -23,7 +23,7 @@ FROM openjdk:8-jre-alpine
 WORKDIR /app
 
 # 定义构建参数来接收版本号
-ARG VERSION=1.0.4-RELEASE
+ARG VERSION=1.0.5-RELEASE
 
 # 从构建环境中复制生成的 JAR 文件到镜像中
 COPY --from=builder /app/target/wilche-test-action-${VERSION}.jar /app/app.jar
