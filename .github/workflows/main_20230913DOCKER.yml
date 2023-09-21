@@ -24,12 +24,17 @@ jobs:
       with:
         username: ${{ secrets.AzureAppService_ContainerUsername_2282f44ddcca483682c2eafb25e50a50 }}
         password: ${{ secrets.AzureAppService_ContainerPassword_080042d8537d4653914b67a7fc0d499e }}
+    - name: Get project version from pom.xml
+      id: get_version
+      run: |
+        version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+        echo "::set-output name=version::${version}"
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_2282f44ddcca483682c2eafb25e50a50 }}/wilche-test-action:${{ github.sha }}
+        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_2282f44ddcca483682c2eafb25e50a50 }}/wilche-test-action:v${{ steps.get_version.outputs.version }}
         file: ./Dockerfile
 
   deploy:
@@ -47,4 +52,4 @@ jobs:
         app-name: '20230913DOCKER'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_47ddd0e3ca1b4a85bf8eda1d53e102d7 }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_2282f44ddcca483682c2eafb25e50a50 }}/wilche-test-action:${{ github.sha }}'
+        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_2282f44ddcca483682c2eafb25e50a50 }}/wilche-test-action:v${{ steps.get_version.outputs.version }}'
