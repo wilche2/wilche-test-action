@@ -53,4 +53,4 @@ jobs:
         app-name: '20230913DOCKER'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_482a3e0418984bdc80183751245ad7e0 }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_295f938df7c941f0be320e4d271ae43f }}wilche/wilche-test-action:${{ github.sha }}'
+        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_295f938df7c941f0be320e4d271ae43f }}/wilche/wilche-test-action:${{ github.sha }}'
