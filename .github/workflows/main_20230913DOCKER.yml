@@ -45,6 +45,11 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
+    - name: Get project version from pom.xml
+      id: get_version_deploy
+      run: |
+        version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+        echo "::set-output name=version::${version}"
     - name: Deploy to Azure Web App
       id: deploy-to-webapp
       uses: azure/webapps-deploy@v2
@@ -52,4 +57,4 @@ jobs:
         app-name: '20230913DOCKER'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_47ddd0e3ca1b4a85bf8eda1d53e102d7 }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_2282f44ddcca483682c2eafb25e50a50 }}/wilche-test-action:v${{ steps.get_version.outputs.version }}'
+        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_2282f44ddcca483682c2eafb25e50a50 }}/wilche-test-action:v${{ steps.get_version_deploy.outputs.version }}'
