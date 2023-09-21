@@ -29,6 +29,7 @@ jobs:
       run: |
         version=$(mvn help:evaluate -Dexpression='project.version' -q -DforceStdout)
         echo "::set-output name=version::${version}"
+        echo "this is version ${version}"
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
@@ -50,6 +51,7 @@ jobs:
       run: |
         version=$(mvn help:evaluate -Dexpression='project.version' -q -DforceStdout)
         echo "::set-output name=version::${version}"
+        echo "this is version ${version}"
 
     - name: Deploy to Azure Web App
       id: deploy-to-webapp
